@@ -20,6 +20,7 @@
 #include<stdlib.h>
 #include<time.h>
 #include<windows.h>
+#include<math.h>
 using namespace std;
 void Vubir_zadachi() {
 	cout << "Oberite zadachy:\n"
@@ -310,6 +311,165 @@ void Faktorial() {
 	cout << "Faktarial chusla " << n << " raven " << f << endl;
 	Show_char('\n');
 }
+int Znahodzenna_prostogo_chisla(int s) {
+	int n = 0;
+	for (int i = 2; i < s; i++) {
+		if (s % i == 0 || s < 1) {
+			n++;
+			break;
+		}
+	}
+	return n;
+}
+void Perevirka_na_proste_chislo(int S) {
+	int N = Znahodzenna_prostogo_chisla(S);
+	if (N == 0) {
+		cout << "Vashe chuslo ";
+		Show(S);
+		cout << " e prostum chislom!\n";
+	}
+	else {
+		cout << "\nChuslo ";
+		Show(S);
+		cout << " ne e prostum chislom!\n";
+	}
+}
+void Proste_chislo() {
+	/*5. Написати функцію, яка перевіряє, чи є передане їй число простим. 
+         Число називається простим, якщо воно ділиться без залишку тільки на себе та на одиницю.*/
+	cout << "Vvedite chislo: ";
+	int n = Vvod_chisla();
+	Perevirka_na_proste_chislo(n);
+	Show_char('\n');
+}
+void Masuv_odnovumirnui(int Arrey[], int E) {
+	Random();
+	for (int i = 0; i < E; i++) {
+		Arrey[i] = rand() % 50 - 25;
+	}
+}
+void Show_Masuv_odnovumirnui(int Arrey[], int E) {
+	Masuv_odnovumirnui(Arrey, E);
+	for (int i = 0; i < E; i++) {
+		cout << Arrey[i];
+		Show_char(' ');
+	}
+	Show_char('\n');
+}
+void Masuv_dvovumirnui(int Arrey[][10], int E, int K) {
+	Random();
+	for (int i = 0; i < E; i++) {
+		for (int j = 0; j < K; j++) {
+			Arrey[i][j] = rand() % 20 - 10;
+		}
+	}
+}
+void Show_Masuv_dvovumirnui(int Arrey[][10], int E, int K) {
+	Masuv_dvovumirnui(Arrey, E, K);
+	for (int i = 0; i < E; i++) {
+		for (int j = 0; j < K; j++) {
+			cout << Arrey[i][j];
+			Show_char(' ');
+		}
+		Show_char('\n');
+	}
+	Show_char('\n');
+}
+void Max_chislo_Masuva_odnovumirnogo(int Arrey[], int E) {
+	Masuv_odnovumirnui(Arrey, E);
+	int Max = Arrey[0], max = 0;
+	for (int i = 0; i < E; i++) {
+		if (Max < Arrey[i]) {
+			Max = Arrey[i];
+			max = i;
+		}
+	}
+	cout << "Maksumalne znachenna macuvy ";
+	Show(Max);
+	cout << " pid nomerom ";
+	Show(max + 1);
+}
+void Min_chislo_Masuva_odnovumirnogo(int Arrey[], int E) {
+	Masuv_odnovumirnui(Arrey, E);
+	int Min = 0, min = 0;
+	for (int i = 0; i < E; i++) {
+		if (Min > Arrey[i]) {
+			Min = Arrey[i];
+			min = i;
+		}
+	}
+	cout << "Minimalne znachenna macuvy ";
+	Show(Min);
+	cout << " pid nomerom ";
+	Show(min + 1);
+}
+void Max_chislo_Masuva_dvovumirnogo(int Arrey[][10], int E, int K) {
+	Masuv_dvovumirnui(Arrey, E, K);
+	int Max = Arrey[0][0];
+	for (int i = 0; i < E; i++) {
+		for (int j = 0; j < K; j++) {
+			if (Max < Arrey[i][j]) {
+				Max = Arrey[i][j];
+			}
+		}
+	}
+	cout << "Maksumalne znachenna macuvy ";
+	Show(Max);
+}
+void Min_chislo_Masuva_dvovumirnogo(int Arrey[][10], int E, int K) {
+	Masuv_dvovumirnui(Arrey, E, K);
+	int Min = 0;
+	for (int i = 0; i < E; i++) {
+		for (int j = 0; j < K; j++) {
+			if (Min > Arrey[i][j]) {
+				Min = Arrey[i][j];
+			}
+		}
+	}
+	cout << "Maksumalne znachenna macuvy ";
+	Show(Min);
+}
+void Rabota_z_masuvom(int H, int A1[], int A2[][10], int R, int C) {
+	switch (H) {
+	case 1: 
+		Show_Masuv_odnovumirnui(A1, C);
+		Show_char('\n');
+		Max_chislo_Masuva_odnovumirnogo(A1, C);
+		Show_char('\n');
+		Min_chislo_Masuva_odnovumirnogo(A1, C);
+		Show_char('\n');
+	break;
+	case 2: 
+		Show_Masuv_dvovumirnui(A2, R, C);
+		Show_char('\n');
+		Max_chislo_Masuva_dvovumirnogo(A2, R, C);
+		Show_char('\n');
+		Min_chislo_Masuva_dvovumirnogo(A2, R, C);
+		Show_char('\n');
+	break;
+	case 3:break;
+	default:Default();
+	}
+}
+void Minimym_ta_maksumym() {
+	//6. Написати функцію, що визначає мінімум і максимум (значення й номер) елементів переданого їй масиву.
+	int i = 0;
+	const int col = 10;
+	const int row = 5;
+	int Arr1[col], Arr2[row][col];
+	while (true) {
+		cout << "\nVvedite vumirnost masuva:\n"
+			<< "1. Odnovumirnui\n"
+			<< "2. Dvovumirnui\n"
+			<< "3. Vuhid\n";
+		int R = Vvod_chisla();
+		if (R == 3) {
+			Show_char('\n');
+			break;
+		}
+		Rabota_z_masuvom(R, Arr1, Arr2, row, col);
+	}
+}
 void Vuxid() {
 	return;
 }
@@ -319,8 +479,8 @@ void Switch(int n) {
 	case 2: Kybuku(); break;
 	case 3: Pramokytnuk(); break;
 	case 4: Faktorial(); break;
-	case 5: break;
-	case 6: break;
+	case 5: Proste_chislo(); break;
+	case 6: Minimym_ta_maksumym(); break;
 	case 7: break;
 	case 8: Vuxid(); break;
 	default:Default();
