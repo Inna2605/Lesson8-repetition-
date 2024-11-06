@@ -144,7 +144,7 @@ int Random_broskiv() {
 	int x = rand() % 6 + 1;
 	for (int i = 0; i < x; i++) { 
 		Show_char('*');
-		cout << ' ';
+		Show_char(' ');
 	}
 	cout << endl;
 	return x;
@@ -238,15 +238,25 @@ void Kybuku() {
 	}
 	Porivnanna(Sum_lyd, Sum_comp);
 }
-void Vusota(int h) {
-	for (int i = 0; i < h; i++) {
-		Show_char('|');
-		Show_char('\n');
-	}
-}
 void Suruna(int h) {
 	for (int i = 0; i < h; i++) {
 		Show_char('-');
+		Show_char(' ');
+	}
+	Show_char('\n');
+}
+void Tilo_pramokytnuka(int h, int s) {
+	for (int j = 0; j < s; j++) {
+		for (int i = 0; i <= h + 1; i++) {
+			if (i == 0 || i == h + 1) {
+				Show_char('|');
+			}
+			else { 
+				Show_char(' '); 
+				Show_char(' ');
+			}
+		}
+		Show_char('\n');
 	}
 }
 void Pramokytnuk() {
@@ -256,13 +266,49 @@ void Pramokytnuk() {
 	int K = Vvod_chisla();
 	Show(N);
 	Show_char(' ');
+	Show_char('\n');
 	Show(K);
 	Show_char('\n');
-	for (int i = 0; i < 2; i++) {
-		if (i == 0 || i == 2 - 1) {
-
+	for (int i = 0; i < 3; i++) {
+		if (i == 0 || i == 3 - 1) {
+			Show_char(' ');
+			Suruna(K);
+		}
+		else {			
+			Tilo_pramokytnuka(K, N);
 		}
 	}
+	Show_char('\n');
+}
+int Znahodzenna_faktorialy(int R) {
+	int F = 1;
+	if (R > 0) {
+		for (int i = 1; i <= R; i++) {
+			F *= i;
+		}
+	}
+	else if (R == 0) {
+		F = 1;
+	}
+	return F;
+}
+void Faktorial() {
+	//4. Написати функцію, яка обчислює факторіал переданого їй числа.
+	int f = 0;
+	cout << "Vvedite chislo: ";
+	int n = Vvod_chisla();
+	while (true) {
+		if (n < 0) {
+			cout << "Faktorial znaitu ne mozluvo!\n"
+				<< "Videmne chuslo!\n";
+		}
+		else {
+			f = Znahodzenna_faktorialy(n);
+			break;
+		}
+	}
+	cout << "Faktarial chusla " << n << " raven " << f << endl;
+	Show_char('\n');
 }
 void Vuxid() {
 	return;
@@ -272,7 +318,7 @@ void Switch(int n) {
 	case 1: Sustema_schuslenna(); break;
 	case 2: Kybuku(); break;
 	case 3: Pramokytnuk(); break;
-	case 4: break;
+	case 4: Faktorial(); break;
 	case 5: break;
 	case 6: break;
 	case 7: break;
