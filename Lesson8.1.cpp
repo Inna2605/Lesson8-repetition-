@@ -349,7 +349,6 @@ void Masuv_odnovumirnui(int Arrey[], int E) {
 	}
 }
 void Show_Masuv_odnovumirnui(int Arrey[], int E) {
-	Masuv_odnovumirnui(Arrey, E);
 	for (int i = 0; i < E; i++) {
 		cout << Arrey[i];
 		Show_char(' ');
@@ -365,7 +364,6 @@ void Masuv_dvovumirnui(int Arrey[][10], int E, int K) {
 	}
 }
 void Show_Masuv_dvovumirnui(int Arrey[][10], int E, int K) {
-	Masuv_dvovumirnui(Arrey, E, K);
 	for (int i = 0; i < E; i++) {
 		for (int j = 0; j < K; j++) {
 			cout << Arrey[i][j];
@@ -376,7 +374,6 @@ void Show_Masuv_dvovumirnui(int Arrey[][10], int E, int K) {
 	Show_char('\n');
 }
 void Max_chislo_Masuva_odnovumirnogo(int Arrey[], int E) {
-	Masuv_odnovumirnui(Arrey, E);
 	int Max = Arrey[0], max = 0;
 	for (int i = 0; i < E; i++) {
 		if (Max < Arrey[i]) {
@@ -390,7 +387,6 @@ void Max_chislo_Masuva_odnovumirnogo(int Arrey[], int E) {
 	Show(max + 1);
 }
 void Min_chislo_Masuva_odnovumirnogo(int Arrey[], int E) {
-	Masuv_odnovumirnui(Arrey, E);
 	int Min = 0, min = 0;
 	for (int i = 0; i < E; i++) {
 		if (Min > Arrey[i]) {
@@ -404,7 +400,6 @@ void Min_chislo_Masuva_odnovumirnogo(int Arrey[], int E) {
 	Show(min + 1);
 }
 void Max_chislo_Masuva_dvovumirnogo(int Arrey[][10], int E, int K) {
-	Masuv_dvovumirnui(Arrey, E, K);
 	int Max = Arrey[0][0];
 	for (int i = 0; i < E; i++) {
 		for (int j = 0; j < K; j++) {
@@ -417,7 +412,6 @@ void Max_chislo_Masuva_dvovumirnogo(int Arrey[][10], int E, int K) {
 	Show(Max);
 }
 void Min_chislo_Masuva_dvovumirnogo(int Arrey[][10], int E, int K) {
-	Masuv_dvovumirnui(Arrey, E, K);
 	int Min = 0;
 	for (int i = 0; i < E; i++) {
 		for (int j = 0; j < K; j++) {
@@ -432,6 +426,7 @@ void Min_chislo_Masuva_dvovumirnogo(int Arrey[][10], int E, int K) {
 void Rabota_z_masuvom(int H, int A1[], int A2[][10], int R, int C) {
 	switch (H) {
 	case 1: 
+		Masuv_odnovumirnui(A1, C);
 		Show_Masuv_odnovumirnui(A1, C);
 		Show_char('\n');
 		Max_chislo_Masuva_odnovumirnogo(A1, C);
@@ -440,6 +435,7 @@ void Rabota_z_masuvom(int H, int A1[], int A2[][10], int R, int C) {
 		Show_char('\n');
 	break;
 	case 2: 
+		Masuv_dvovumirnui(A2, R, C);
 		Show_Masuv_dvovumirnui(A2, R, C);
 		Show_char('\n');
 		Max_chislo_Masuva_dvovumirnogo(A2, R, C);
@@ -470,6 +466,25 @@ void Minimym_ta_maksumym() {
 		Rabota_z_masuvom(R, Arr1, Arr2, row, col);
 	}
 }
+void Zmina_elementiv(int Arrey1[], int Arrey2[], int nom) {
+	int a = 0;
+	for (int i = nom - 1; i >= 0; i--) {
+		Arrey2[a] = Arrey1[i];
+		a++;
+	}
+}
+void Zmina_elementiv_v_masuvi() {
+	//7. Написати функцію, яка міняє порядок елементів переданого їй масиву на протилежний.
+	const int N = 10;
+	int Arr1[N], Arr2[N];
+	Masuv_odnovumirnui(Arr1, N);
+	cout << "Dan masuv\n";
+	Show_Masuv_odnovumirnui(Arr1, N);
+	Zmina_elementiv(Arr1, Arr2, N);
+	cout << "\nZminenuy poradok elementiv na protulezni\n";
+	Show_Masuv_odnovumirnui(Arr2, N);
+	Show_char('\n');
+}
 void Vuxid() {
 	return;
 }
@@ -481,11 +496,12 @@ void Switch(int n) {
 	case 4: Faktorial(); break;
 	case 5: Proste_chislo(); break;
 	case 6: Minimym_ta_maksumym(); break;
-	case 7: break;
+	case 7: Zmina_elementiv_v_masuvi(); break;
 	case 8: Vuxid(); break;
 	default:Default();
 	}
 }
+
 int main() {
 	int A = 0;
 	while (A < 8) {
