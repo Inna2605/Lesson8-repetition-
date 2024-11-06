@@ -17,6 +17,9 @@
 7. Написати функцію, яка міняє порядок елементів переданого їй масиву на протилежний.*/
 
 #include<iostream>
+#include<stdlib.h>
+#include<time.h>
+#include<windows.h>
 using namespace std;
 void Vubir_zadachi() {
 	cout << "Oberite zadachy:\n"
@@ -35,9 +38,18 @@ int Vvod_chisla() {
 	cin >> H;
 	return H;
 }
+char Vvod_sumbola() {
+	char H;
+	cin >> H;
+	return H;
+}
 void Show(int H) {
 	cout << H;
 }
+void Show_char(char H) {
+	cout << H;
+}
+
 int Dvoichna_Vosmerichna_sustema(int H, int K) {
 	int D, B = 0, n = 0;
 	while (H > 0) {
@@ -88,13 +100,13 @@ void Shesnadcaterichna_sustema(int H) {
 			cout << (char)Arr[j];
 		}
 		else
-		cout<<Arr[j];
+			Show(Arr[j]);
 	}
 	cout << endl;
 }
 
 void Default() {
-	cout << "Ne virno obranui variant!\n";
+	cout << "Ne virno obranui variant!\n\n";
 }
 void Peretvorenna_za_sustemoy_shuslenna(int X, int Y) {
 	if (Y == 10) {
@@ -124,6 +136,71 @@ void Sustema_schuslenna() {
 	S = Vvod_chisla();
 	Peretvorenna_za_sustemoy_shuslenna(Ch, S);
 }
+void Random() {
+	srand(time(NULL));
+}
+int Random_broskiv() {
+	Random();
+	int x = rand() % 6 + 1;
+	for (int i = 0; i < x; i++) { 
+		Show_char('*');
+		cout << ' ';
+	}
+	cout << endl;
+	return x;
+}
+int Brosku() {
+	int Sum = 0;
+	for (int i = 0; i < 2; i++) {
+			cout << "Kybuk " << i + 1 << " : ";
+			Sum += Random_broskiv();
+			Sleep(1000);
+	}
+	Sleep(500);
+	return Sum;
+}
+int Vubir_xody() {
+	char sb = Vvod_sumbola();
+	if (sb == 'k'|| sb == 'K') {
+		Random();
+		int a = rand() % 2;
+		cout << "Randomnui vubir (\'0\' - kompyter, \'1\' - luduna): ";
+		Show(a);
+		if (a == 0) {
+			cout << "\n\nPersui hid za kompyterom";
+		}
+		else if (a == 1) {
+			cout << "\n\nPersui hid za vamu!"
+				<< "\nRobite brosok!";
+		}
+		return a;
+	}
+	else Default();
+}
+int Brosku(int B) {
+	B += Brosku();
+	return B;
+}
+void Porivnanna(int X, int Y) {
+	if (X > Y) {
+		cout << "\n!!!VITAY VU VUGRALU!!!\n"
+			<< "Suma vasux broskiv " << X
+			<< "\nSuma broskiv kompytera " << Y
+			<< "\n\n";
+	}
+	else if (X == Y) {
+		cout << "\nNichia! Peremogla dryzba!\n"
+			<< "Suma vasux broskiv " << X
+			<< "\nSuma broskiv kompytera " << Y
+			<< " odnakova!\n\n";
+	}
+	else {
+		cout << "\nVugrav compyter.\n"
+			<< "Suma broskiv kompytera " << Y
+			<< " \nSumma vasux broskiv " << X
+			<< "\nVam posastut nastypnoi gru.\n\n";
+	}
+}
 void Kybuku() {
 	/*2. Гра «кубики». 
     Умова: є два гральні кубики зі значеннями від 1 до 6. 
@@ -132,6 +209,60 @@ void Kybuku() {
     Передбачте можливість отримання першого ходу людиною або комп'ютером.
     Кубики відображаються за допомогою символів. 
     У кінці гри необхідно виводити середню суму за кидками для обох учасників.*/
+	int Sum_comp = 0, Sum_lyd = 0;
+	cout << "Vuznachte y kogo pravo persogo xody.\n"
+		<< "Vvedite sumbol \"K\" dla randomnogo vubory: ";
+	int x = Vubir_xody();
+	cout << endl;
+	int N = 0, n = 0;
+	char sb = 's';
+	for (int k = 0; k < 10; k++) {
+		if ((x == 0 && (k == 0 || k % 2 == 0)) || (x == 1 && (k % 2 != 0))) {
+			n++;
+			cout << "\nBrosok kompytera:\nBrosok: " << n << endl;
+			Sum_comp = Brosku(Sum_comp);
+		}
+		else if ((x == 0 && (k % 2 != 0)) || (x == 1 && (k == 0 || k % 2 == 0))) {
+			N++;
+			cout << "\nVas hid:\nBrosok: " << N << endl;
+			while (true) {
+				cout << "Vvedite sumbol \"K\" dla broska kybukiv: ";
+				sb = Vvod_sumbola();
+				if (sb == 'k' || sb == 'K') {
+					Sum_lyd = Brosku(Sum_lyd);
+					break;
+				}
+				else Default();
+			}
+		}
+	}
+	Porivnanna(Sum_lyd, Sum_comp);
+}
+void Vusota(int h) {
+	for (int i = 0; i < h; i++) {
+		Show_char('|');
+		Show_char('\n');
+	}
+}
+void Suruna(int h) {
+	for (int i = 0; i < h; i++) {
+		Show_char('-');
+	}
+}
+void Pramokytnuk() {
+	//3. Написати функцію, що виводить на екран прямокутник з висотою N і шириною K.
+	cout << "Vvedite vusoty ta suruny pramokytnuka: ";
+	int N = Vvod_chisla();
+	int K = Vvod_chisla();
+	Show(N);
+	Show_char(' ');
+	Show(K);
+	Show_char('\n');
+	for (int i = 0; i < 2; i++) {
+		if (i == 0 || i == 2 - 1) {
+
+		}
+	}
 }
 void Vuxid() {
 	return;
@@ -139,8 +270,8 @@ void Vuxid() {
 void Switch(int n) {
 	switch (n) {
 	case 1: Sustema_schuslenna(); break;
-	case 2: break;
-	case 3: break;
+	case 2: Kybuku(); break;
+	case 3: Pramokytnuk(); break;
 	case 4: break;
 	case 5: break;
 	case 6: break;
