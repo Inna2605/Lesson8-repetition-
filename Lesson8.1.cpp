@@ -485,9 +485,6 @@ void Zmina_elementiv_v_masuvi() {
 	Show_Masuv_odnovumirnui(Arr2, N);
 	Show_char('\n');
 }
-void Vuxid() {
-	return;
-}
 void Switch(int n) {
 	switch (n) {
 	case 1: Sustema_schuslenna(); break;
@@ -497,7 +494,6 @@ void Switch(int n) {
 	case 5: Proste_chislo(); break;
 	case 6: Minimym_ta_maksumym(); break;
 	case 7: Zmina_elementiv_v_masuvi(); break;
-	case 8: Vuxid(); break;
 	default:Default();
 	}
 }
